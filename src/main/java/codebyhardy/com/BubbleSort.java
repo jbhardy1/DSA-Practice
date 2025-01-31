@@ -3,8 +3,9 @@ package codebyhardy.com;
 public class BubbleSort {
 
     public static void main(String[] args) {
-        //practice with Bubble Sort and Arrays
-        //time complexity is always O(n^2) due to the nested for loop iterating through and comparing the elements of different indexes.
+        /** practice with Bubble Sort and Arrays
+        time complexity is always O(n^2), quadratic,  due to the nested for loop iterating through and comparing the elements of
+         different indexes. **/
 
         int[] myArray = new int[]{7,14,11,8,9}; //initialize unsorted array
         System.out.println("Before Sorting: ");

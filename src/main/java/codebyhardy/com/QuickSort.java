@@ -1,56 +1,67 @@
 package codebyhardy.com;
 
+import java.util.Random;
+
 public class QuickSort {
 
     public static void main(String[] args) {
         /** Quick sort is one of the most crucial algorithms, given it has a time
          * complexity of O(n log n) whereas other sorts have O(n^2) sort time */
-        int[] arr = {10, 7, 8, 9, 1, 5};
-        int n = arr.length;
-        quickSort(arr, 0, n - 1);
 
-        for(int num : arr){
-            System.out.print(num + " ");
+        Random rand = new Random();
+        int[] numbers = new int[10];
+
+        for(int i = 0; i < numbers.length; i++){
+            numbers[i] = rand.nextInt(100);
         }
+
+        System.out.println("Before: ");
+        printArray(numbers);
+
+        quickSort(numbers, 0, numbers.length - 1); //call quick sort method, passing in lower bound and choosing
+        //last element as pivot. Since you want to sort the whole array, the low bound is alwasy index 0
+
+        System.out.println("\nAfter: ");
+        printArray(numbers);
     }
 
-    //You need a partition method to track the index of the smaller elements and keep swapping
-    public static int partition(int[] arr, int low, int high){
+    /**
+     * Method to actually sort. Takes the array we're sorting and the low and high indexes
+     * **/
+    public static void quickSort(int[] numbers, int lowIndex, int highIndex) {
+        if(lowIndex >= highIndex){
+            return;
+        }
+        int pivot = numbers[highIndex]; //chose the last element as pivot
 
-        int pivot = arr[high]; //choose the pivot
+        int leftPointer = lowIndex; //create pointers to move through the array from left to right
+        int rightPointer = highIndex;
 
-        int i = low - 1; //set index of smaller element
-
-        //travers the array and move smaller elements to left side
-        for(int j = low; j < high - 1; j++){
-            if (arr[j] < pivot){
-                i++;
-                swap(arr, i, j);
+        while(leftPointer < rightPointer){
+            while(numbers[leftPointer] <= pivot && leftPointer < rightPointer){
+                leftPointer++;
             }
+            while(numbers[rightPointer] >= pivot && leftPointer < rightPointer){
+                rightPointer--;
+            }
+
+            swap(numbers, leftPointer, rightPointer);
         }
+        swap(numbers, leftPointer, highIndex);
 
-        //move pivot after smaller elements and return its position
-        swap(arr, i + 1, high);
-        return i + 1;
+        quickSort(numbers, lowIndex, leftPointer - 1);
+        quickSort(numbers, leftPointer + 1, highIndex);
     }
 
-    //a function to swap the elements
-    public static void swap(int[] arr, int i, int j){
-        int temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
+    private static void swap(int[] numbers, int index1, int index2){
+        int temp = numbers[index1];
+        numbers[index1] = numbers[index2];
+        numbers[index2] = temp;
     }
 
-    //actual implementation of the quicksort
-    public static void quickSort(int[] arr, int low, int high){
-        if(low < high){
-
-            //pivot is the partition return index of pivot
-            int pivot = partition(arr, low, high);
-
-            //recursion calls for smaller elements and greater or equal elements
-            quickSort(arr, low, pivot - 1);
-            quickSort(arr, pivot + 1, high);
+    public static void printArray(int[] array){
+        for(int i = 0; i < array.length; i++){
+            System.out.print(array[i] + " ");
         }
     }
 }

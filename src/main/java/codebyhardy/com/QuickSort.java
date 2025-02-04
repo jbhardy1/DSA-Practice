@@ -19,7 +19,7 @@ public class QuickSort {
         printArray(numbers);
 
         quickSort(numbers, 0, numbers.length - 1); //call quick sort method, passing in lower bound and choosing
-        //last element as pivot. Since you want to sort the whole array, the low bound is alwasy index 0
+        //last element as pivot. Since you want to sort the whole array, the low bound is always index 0
 
         System.out.println("\nAfter: ");
         printArray(numbers);
